@@ -1,0 +1,53 @@
+<!-- 
+    POTEL Martin
+    28-03-2017
+    iHoover
+-->
+
+
+<!DOCTYPE html>
+<html ng-app='ngIHoover'>
+
+  <head>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head> 
+
+  <body ng-controller="ihooverCtrl">
+
+    <h1> iHoover </h1>
+    <div id="gridContainer">
+      <div> 
+        Hoover information:
+        <input type="number" class="input" ng-model="hoover.position.x" min="0" max="{{gridSizeX-1}}">
+        <input type="number" class="input" ng-model="hoover.position.y" min="0" max="{{gridSizeY-1}}">
+        <select ng-model="hoover.direction"  class="input">
+          <option ng-repeat="x in directions">{{x}}</option>
+        </select>
+      <div> 
+      </div>
+      <div> 
+        Grid:
+        x:<input type="number" class="input" ng-model="gridSizeX" ng-change="setupBoard()">
+        y:<input type="number" class="input" ng-model="gridSizeY" ng-change="setupBoard()">
+      </div>
+      <div id="grid">
+          <div class="row" ng-repeat="column in board">
+              <div class="column"
+                  ng-style="{'background-color': setStyling($parent.$index, $index)}"
+                  ng-repeat="row in column track by $index"
+              ></div>
+          </div>
+      </div>
+      <div>
+        Commands:
+        <input type="text" id="commands" ng-model="commands">
+      </div>
+      <button id="button" ng-click="clean()" ng-disabled="checkCommands()">iHoover, Clean!</button>
+      <button id="button" ng-click="start()" ng-disabled="checkCommands()">Reset!</button>
+    </div>
+
+    <script src="angular.min.js"></script>
+    <script src="ihoover.js"></script> 
+  </body>
+
+</html>
